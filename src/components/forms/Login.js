@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
   const [details, setDetails] = useState({
@@ -14,17 +15,20 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form action="" method="POST">
+    <div className="root">
+      <h1 className="header">Login</h1>
+      <form action="" method="POST" className="form-group">
         <input 
+          className="form-input"
           type="email" 
           placeholder="Email" 
           name="email"
           value={details.email}
           onChange={onChangeFormFields}
+          autoFocus
         /> <br />
         <input 
+          className="form-input"
           type="password" 
           placeholder="Password" 
           name="password"
@@ -32,10 +36,12 @@ const Login = () => {
           onChange={onChangeFormFields}
         /> <br />
         <button 
+          className="form-button"
           type="submit"
         >Login</button>
       </form>
-      <p>Don't have account <Link to="/signup">Sign Up</Link></p>
+      <p className="form-text">Reset <Link to="#" className="form-link">Password</Link></p>
+      <p className="form-text">Don't have account <Link to="/signup">Sign Up</Link></p>
     </div>
   );
 };

@@ -1,0 +1,38 @@
+.root {
+  width: fit-content;
+  margin: 35vh auto;
+  padding: 50px;
+  border: 2px solid rgba(22, 22, 22, 0.096);
+  border-radius: 5px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  box-shadow: 2px 2px 8px rgba(22, 22, 22, 0.096);
+}
+
+.root .header {
+  color: rgb(7, 7, 121);
+  margin-bottom: 10px;
+}
+
+.form-input {
+  margin: 10px;
+  font-size: 18px;
+  border: 1px solid rgba(105, 98, 98, 0.842);
+  border-radius: 3px;
+  padding: 10px;
+  width: 250px;
+}
+
+.form-button {
+  background-color: blue;
+  width: fit-content;
+  font-size: 25px;
+  cursor: pointer;
+  margin: 15px;
+}
+
+.form-text {
+  opacity: .7;
+  margin: 5px;
+  font-size: 15px;
+}
