@@ -62,7 +62,7 @@ const Login = () => {
       </form>
 
       {/* Other Links */}
-      <p className="form-text">Reset <Link to="#" className="form-link">Password</Link></p>
+      <p className="form-text">Reset <Link to="/reset-password" className="form-link">Password</Link></p>
       <p className="form-text">Don't have account <Link to="/signup">Sign Up</Link></p>
     </div>
   );
