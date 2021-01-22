@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from '../../services/axios/axios';
+import setAuthAxios from '../../services/axios/authAxios';
 
 import './Form.css';
 
@@ -9,23 +11,41 @@ const Login = () => {
     password: ""
   });
   const [error, setError] = useState('');
+  const history = useHistory();
 
   const onChangeFormFields = (event) => {
     const { name, value } = event.target;
 
-    setDetails({ ...details, [name]: value });
+    setDetails({ ...details, [name]: value.trim() });
+  };
+
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+
+    axios.post('/users/auth/login', { ...details })
+      .then(response => {
+        let { data } = response;
+        setAuthAxios(data.token);
+
+        console.log(history);
+        history.push('/');
+      })
+      .catch(err => {
+        setError(err.response.data.message);
+        setDetails({ email: '', password: '' });
+      });
   };
 
   return (
     <div className="root">
       <h1 className="header">Login</h1>
 
-      <form action="" method="POST" className="form-group">
+      <form className="form-group" onSubmit={onSubmitForm}>
 
         {/* Showing error */}
         {
           error &&
-          <div className="form-error">
+          <div className="form-message form-error">
             <span>{error}</span>
             <span
               className="close-btn"
