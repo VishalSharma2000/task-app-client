@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../services/axios/axios';
-import setAuthAxios from '../../services/axios/authAxios';
+import { setAuthAxios } from '../../services/axios/authAxios';
 
 import './Form.css';
 
@@ -16,7 +16,7 @@ const Login = () => {
   const onChangeFormFields = (event) => {
     const { name, value } = event.target;
 
-    setDetails({ ...details, [name]: value.trim() });
+    setDetails({ ...details, [name]: value });
   };
 
   const onSubmitForm = async (e) => {

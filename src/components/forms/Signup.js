@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from '../../services/axios/axios';
+import { setAuthAxios } from '../../services/axios/authAxios';
 
 import "./Form.css";
 
@@ -18,18 +20,38 @@ const Signup = () => {
     confirmPassword: ""
   });
   const [error, setError] = useState('');
+  const history = useHistory();
 
   const onChangeFormFields = (event) => {
     const { name, value } = event.target;
 
-    setDetails({ ...details, [name]: value.trim() });
+    setDetails({ ...details, [name]: value });
   };
 
   const onClickSubmit = (event) => {
     event.preventDefault();
 
     let errorVal = checkInputValidation(details);
-    if (errorVal) setError(errorVal);
+    if (errorVal) {
+      setError(errorVal);
+      return;
+    }
+
+    let tempObj = details;
+    delete tempObj.confirmPassword;
+
+    axios.post('/users/auth/signup', { ...tempObj })
+      .then(response => {
+        let { data } = response;
+        setAuthAxios(data.token);
+
+        history.push('/');
+      })
+      .catch(err => {
+        let { data } = err.response;
+        setError(data.message);
+      })
+
   };
 
   return (
@@ -41,7 +63,7 @@ const Signup = () => {
         {/* For showing error */}
         {
           error &&
-          <div className="form-error">
+          <div className="form-message form-error">
             <span>{error}</span>
             <span
               className="close-btn"

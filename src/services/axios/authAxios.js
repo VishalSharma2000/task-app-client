@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseAPIUrl = "http://localhost:8000/";
 export let authAxios;
 
-const setAuthAxios = (accessToken) => {
+export const setAuthAxios = (accessToken) => {
   authAxios = axios.create({
     baseURL: baseAPIUrl,
     headers: {
@@ -13,6 +13,4 @@ const setAuthAxios = (accessToken) => {
 
   return authAxios;
 }
-
-export default setAuthAxios;
 
