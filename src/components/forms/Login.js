@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../services/axios/axios';
 import { setAuthAxios } from '../../services/axios/authAxios';
+import { loginWithEmailAndPassword } from '../../services/user/auth';
 
 import './Form.css';
 
@@ -22,11 +23,13 @@ const Login = () => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
 
-    axios.post('/users/auth/login', { ...details })
+    // axios.post('/users/auth/login', { ...details })
+    
+    loginWithEmailAndPassword(details.email, details.password)
       .then(response => {
         let { data } = response;
         setAuthAxios(data.token);
-
+    
         console.log(history);
         history.push('/');
       })
