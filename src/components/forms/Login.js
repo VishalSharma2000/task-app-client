@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import axios from '../../services/axios/axios';
+import { Link, useHistory } from 'react-router-dom';
 import { setAuthAxios } from '../../services/axios/authAxios';
 import { loginWithEmailAndPassword } from '../../services/user/auth';
 
@@ -14,11 +13,11 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const history = useHistory();
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     const user = window.localStorage.getItem('user');
-    console.log('User data in login componenet', user);
+
     if (user) {
       setCurrentUser(user);
       history.push('/');
@@ -42,7 +41,6 @@ const Login = () => {
         setAuthAxios(data.token);
         setCurrentUser(JSON.stringify(data)); // updating the context state.
 
-        console.log(history);
         history.push('/');
       })
       .catch(err => {
