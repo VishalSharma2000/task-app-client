@@ -6,16 +6,13 @@ export const UserProvider = props => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
-    const getUserDetails = () => {
-      const user = window.localStorage.getItem('user');
-      setCurrentUser(user);
-    }
-
-    window.addEventListener('load', getUserDetails);
+    const user = window.localStorage.getItem('user');
+    if (user) setCurrentUser(user);
   }, []);
 
   const value = {
-    currentUser
+    currentUser,
+    setCurrentUser
   }
 
   return (

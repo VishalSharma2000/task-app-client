@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import axios from '../../services/axios/axios';
 import { setAuthAxios } from '../../services/axios/authAxios';
 import { loginWithEmailAndPassword } from '../../services/user/auth';
 
 import './Form.css';
+import { UserContext } from '../context/UserContext';
 
 const Login = () => {
   const [details, setDetails] = useState({
@@ -13,6 +14,16 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const history = useHistory();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const user = window.localStorage.getItem('user');
+    console.log('User data in login componenet', user);
+    if (user) {
+      setCurrentUser(user);
+      history.push('/');
+    }
+  }, []);
 
   const onChangeFormFields = (event) => {
     const { name, value } = event.target;
@@ -20,16 +31,17 @@ const Login = () => {
     setDetails({ ...details, [name]: value });
   };
 
-  const onSubmitForm = async (e) => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
 
     // axios.post('/users/auth/login', { ...details })
-    
+
     loginWithEmailAndPassword(details.email, details.password)
       .then(response => {
         let { data } = response;
         setAuthAxios(data.token);
-    
+        setCurrentUser(JSON.stringify(data)); // updating the context state.
+
         console.log(history);
         history.push('/');
       })
