@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from '../../services/axios/axios';
 import { setAuthAxios } from '../../services/axios/authAxios';
 
 import "./Form.css";
+import { signUpWithEmailAndPassword } from '../../services/user/auth';
+import { UserContext } from '../context/UserContext';
 
 // check for all the needed validation before submitting the form
 const checkInputValidation = (details) => {
@@ -21,6 +22,7 @@ const Signup = () => {
   });
   const [error, setError] = useState('');
   const history = useHistory();
+  const { setCurrentUser } = useContext(UserContext);
 
   const onChangeFormFields = (event) => {
     const { name, value } = event.target;
@@ -40,10 +42,11 @@ const Signup = () => {
     let tempObj = details;
     delete tempObj.confirmPassword;
 
-    axios.post('/users/auth/signup', { ...tempObj })
+    signUpWithEmailAndPassword(details.name, details.email, details.password)
       .then(response => {
         let { data } = response;
         setAuthAxios(data.token);
+        setCurrentUser(data);
 
         history.push('/');
       })

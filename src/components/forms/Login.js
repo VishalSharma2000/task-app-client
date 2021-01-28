@@ -19,7 +19,7 @@ const Login = () => {
     const user = window.localStorage.getItem('user');
 
     if (user) {
-      setCurrentUser(user);
+      setCurrentUser(JSON.parse(user));
       history.push('/');
     }
   }, []);
@@ -39,11 +39,12 @@ const Login = () => {
       .then(response => {
         let { data } = response;
         setAuthAxios(data.token);
-        setCurrentUser(JSON.stringify(data)); // updating the context state.
+        setCurrentUser(data); // updating the context state.
 
         history.push('/');
       })
       .catch(err => {
+        console.log('This isi error', err)
         setError(err.response.data.message);
         setDetails({ email: '', password: '' });
       });

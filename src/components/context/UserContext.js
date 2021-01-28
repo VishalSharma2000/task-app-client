@@ -7,7 +7,7 @@ export const UserProvider = props => {
 
   useEffect(() => {
     const user = window.localStorage.getItem('user');
-    if (user) setCurrentUser(user);
+    if (user) setCurrentUser(JSON.parse(user));
   }, []);
 
   const value = {
