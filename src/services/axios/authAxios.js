@@ -7,7 +7,7 @@ export const setAuthAxios = (accessToken) => {
   authAxios = axios.create({
     baseURL: baseAPIUrl,
     headers: {
-      Authorization: `Bearere ${accessToken}`
+      Authorization: `Bearer ${accessToken}`
     },
   });
 

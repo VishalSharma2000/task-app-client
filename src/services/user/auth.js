@@ -1,4 +1,5 @@
 import axios from '../axios/axios';
+import { authAxios } from '../axios/authAxios';
 
 export const loginWithEmailAndPassword = (email, password) => {
   return new Promise((resolve, reject) => {
@@ -27,3 +28,9 @@ export const signUpWithEmailAndPassword = (name, email, password) => {
       })
   });
 };
+
+export const logoutUser = async () => {
+  window.localStorage.removeItem('user');
+
+  await authAxios.post('/users/logout');
+}
