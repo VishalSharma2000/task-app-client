@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setAuthAxios } from '../../services/axios/authAxios';
 import { loginWithEmailAndPassword } from '../../services/user/auth';
+import Captcha from '../Captcha/Captcha';
 
 import './Form.css';
 import { UserContext } from '../context/UserContext';
@@ -89,6 +90,9 @@ const Login = () => {
           onChange={onChangeFormFields}
           required
         /> <br />
+
+        <Captcha />
+
         <button
           className="form-button"
           type="submit"

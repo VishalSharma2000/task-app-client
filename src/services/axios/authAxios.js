@@ -11,6 +11,6 @@ export const setAuthAxios = (accessToken) => {
     },
   });
 
-  return authAxios;
+  // return authAxios;
 }
 

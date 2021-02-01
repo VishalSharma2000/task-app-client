@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { UserProvider } from '../components/context/UserContext';
 import PrivateRoute from '../components/PrivateRoute';
 
-import Login from './forms/Login';
+import Login from './Forms/Login';
 import Error from './Error';
-import Signup from './forms/Signup';
-import ForgotPassword from './forms/ForgotPassword';
+import Signup from './Forms/Signup';
+import ForgotPassword from './Forms/ForgotPassword';
 import Home from '../components/User/Home';
 
 const App = () => {
