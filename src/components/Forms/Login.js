@@ -17,10 +17,12 @@ const Login = () => {
   const { setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
-    const user = window.localStorage.getItem('user');
+    let user = window.localStorage.getItem('user');
 
     if (user) {
-      setCurrentUser(JSON.parse(user));
+      user = JSON.parse(user);
+      setAuthAxios(user.token);
+      setCurrentUser(user);
       history.push('/');
     }
   }, []);
